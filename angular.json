@@ -27,6 +27,11 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               {
+                "glob": "(mode-javascript|worker-javascript|mode-css|worker-css).js",
+                "input": "./node_modules/ace-builds/src-min-noconflict/",
+                "output": "./ace/"
+              },
+              {
                 "glob": "**/*",
                 "input": "public"
               }
