@@ -1,1 +1,6 @@
-<p>options works!</p>
+<div class="workplace">
+  <form class="editors-area" [formGroup]="codeBundleForm">
+    <app-editor [type]="EditorType.JS"></app-editor>
+    <app-editor [type]="EditorType.CSS"></app-editor>
+  </form>
+</div>

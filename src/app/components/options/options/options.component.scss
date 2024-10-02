@@ -1,0 +1,11 @@
+.workplace {
+  height: 100%;
+  form {
+    height: 100%;
+    display: flex;
+    app-editor {
+      display: block;
+      flex: 1 1 50%;
+    }
+  }
+}
