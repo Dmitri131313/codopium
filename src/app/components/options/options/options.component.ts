@@ -33,13 +33,6 @@ export class OptionsComponent {
   protected readonly EditorType = EditorType;
   protected readonly IconSet = IconSet;
 
-  test() {
-    this.codeBundleForm.patchValue({
-      js: 'js code',
-      css: 'css code',
-    })
-  }
-
   saveCodeBundle(): void {
 
   }
