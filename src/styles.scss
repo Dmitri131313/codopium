@@ -27,3 +27,22 @@ body {
   }
 
 }
+
+button {
+  .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: .5em;
+  }
+  &:not(:disabled) {
+    svg {
+      fill: #fff;
+    }
+  }
+}
+
+mat-icon {
+  svg {
+    fill: var(--icon-color);
+  }
+}
