@@ -1,6 +1,37 @@
 <div class="workplace">
   <form class="editors-area" [formGroup]="codeBundleForm">
-    <app-editor [type]="EditorType.JS"></app-editor>
-    <app-editor [type]="EditorType.CSS"></app-editor>
+    <div class="editors-header">
+      <div class="url-patterns-control">
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label>URL patterns list comma separated</mat-label>
+          <input type="text"
+                 matInput
+                 placeholder="https://site.com/*, !https://site.com/excluded/*"
+                 formControlName="urlPatternsCommaSeparated">
+        </mat-form-field>
+      </div>
+      <div class="buttons">
+        <button type="button"
+                mat-flat-button
+                color="primary"
+                [disabled]="codeBundleForm.invalid || !codeBundleForm.dirty"
+                (click)="saveCodeBundle()">
+          <app-icon [icon]="IconSet.save"></app-icon>
+          Save
+        </button>
+        <button type="button"
+                mat-flat-button
+                color="warn"
+                (click)="removeCodeBundle()"
+                [disabled]="!codeBundleForm.value.id">
+          <app-icon [icon]="IconSet.delete"></app-icon>
+          Delete
+        </button>
+      </div>
+    </div>
+    <div class="editors">
+      <app-editor [type]="EditorType.JS"></app-editor>
+      <app-editor [type]="EditorType.CSS"></app-editor>
+    </div>
   </form>
 </div>

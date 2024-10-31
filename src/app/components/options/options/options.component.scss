@@ -1,11 +1,39 @@
 .workplace {
   height: 100%;
-  form {
-    height: 100%;
+  display: flex;
+  .editors-area {
+    flex: 1 1 auto;
     display: flex;
-    app-editor {
-      display: block;
-      flex: 1 1 50%;
+    flex-direction: column;
+    gap: .5em;
+    .editors-header {
+      padding: .5em .5em 0 0;
+      flex: 0 0 auto;
+      display: flex;
+      align-items: stretch;
+      gap: .5em;
+      .url-patterns-control {
+        position: relative;
+        flex: 1 1 auto;
+        mat-form-field {
+          width: 100%;
+        }
+      }
+      .buttons {
+        flex: 0 0 auto;
+        gap: .5em;
+        display: flex;
+        button {
+          height: 100%;
+        }
+      }
+    }
+    .editors {
+      flex: 1 1 auto;
+      display: flex;
+      app-editor {
+        flex: 1 1 50%;
+      }
     }
   }
 }
