@@ -9,6 +9,9 @@ import {CodeBundle, CodeService} from "../../../shared/services/code.service";
 import {MatToolbar} from "@angular/material/toolbar";
 import {UrlPatternGroupsListComponent} from "../url-pattern-groups-list/url-pattern-groups-list.component";
 import {UrlPatternsGroupValidator} from "../../../shared/validators/url-patterns-group.validator";
+import {
+  UrlPatternsGroupRequirementsComponent
+} from "../../../shared/components/url-patterns-group-requirements/url-patterns-group-requirements.component";
 
 @Component({
   selector: 'app-options',
@@ -23,6 +26,7 @@ import {UrlPatternsGroupValidator} from "../../../shared/validators/url-patterns
     MatButton,
     IconComponent,
     MatToolbar,
+    UrlPatternsGroupRequirementsComponent,
   ],
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss'

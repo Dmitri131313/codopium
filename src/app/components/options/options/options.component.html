@@ -8,6 +8,12 @@
   <form class="editors-area" [formGroup]="codeBundleForm">
     <div class="editors-header">
       <div class="url-patterns-control">
+        @if (codeBundleForm.get('urlPatternsCommaSeparated')?.hasError('wrongPatternsGroup')) {
+          <div class="error-help">
+            <app-icon [icon]="IconSet.error" color="#f00"></app-icon>
+            <app-url-patterns-group-requirements></app-url-patterns-group-requirements>
+          </div>
+        }
         <mat-form-field subscriptSizing="dynamic">
           <mat-label>URL patterns list comma separated</mat-label>
           <input type="text"

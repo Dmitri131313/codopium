@@ -24,6 +24,33 @@
         mat-form-field {
           width: 100%;
         }
+        .error-help {
+          position: absolute;
+          z-index: 9;
+          right: 1em;
+          top: 1em;
+          app-icon {
+            display: block;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+          }
+          app-url-patterns-group-requirements {
+            border: solid 1px #999;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+            display: block;
+            width: 600px;
+            position: absolute;
+            z-index: 0;
+            right: -.5em;
+            top: -.5em;
+          }
+          &:not(:hover) {
+            app-url-patterns-group-requirements {
+              display: none;
+            }
+          }
+        }
       }
       .buttons {
         flex: 0 0 auto;
