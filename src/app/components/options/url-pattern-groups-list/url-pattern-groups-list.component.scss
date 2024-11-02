@@ -1,0 +1,18 @@
+.url-pattern-groups-list {
+  display: flex;
+  flex-direction: column;
+  .url-pattern-group {
+    padding: .7em .5em;
+    cursor: pointer;
+    transition: .25s;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    &.selected {
+      background-color: #fff;
+    }
+    &:hover:not(.selected) {
+      background-color: #e1e1e1;
+    }
+  }
+}

@@ -14,7 +14,6 @@ export interface CodeBundle {
   providedIn: 'root'
 })
 export class CodeService {
-
   onCodeBundlesUpdate: Subject<void> = new Subject<void>()
 
   constructor(

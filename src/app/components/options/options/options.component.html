@@ -1,4 +1,7 @@
 <div class="workplace">
+  <div class="sidebar">
+    <app-url-pattern-groups-list [loadedCodeBundleId]="this.codeBundleForm.value.id"></app-url-pattern-groups-list>
+  </div>
   <form class="editors-area" [formGroup]="codeBundleForm">
     <div class="editors-header">
       <div class="url-patterns-control">

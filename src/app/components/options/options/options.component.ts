@@ -6,11 +6,14 @@ import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
 import {IconComponent, IconSet} from "../../../shared/components/icon/icon.component";
 import {CodeBundle, CodeService} from "../../../shared/services/code.service";
+import {MatToolbar} from "@angular/material/toolbar";
+import {UrlPatternGroupsListComponent} from "../url-pattern-groups-list/url-pattern-groups-list.component";
 
 @Component({
   selector: 'app-options',
   standalone: true,
   imports: [
+    UrlPatternGroupsListComponent,
     EditorComponent,
     ReactiveFormsModule,
     MatFormField,
@@ -18,6 +21,7 @@ import {CodeBundle, CodeService} from "../../../shared/services/code.service";
     MatInput,
     MatButton,
     IconComponent,
+    MatToolbar,
   ],
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss'
