@@ -4,6 +4,7 @@
          (click)="loadCodeBundle(codeBundle)"
          [class.selected]="codeBundle.id === loadedCodeBundleId"
          [title]="codeBundle.urlPatternsCommaSeparated">
+      <mat-slide-toggle (change)="isActiveChange(codeBundle, $event.checked)" [(ngModel)]="codeBundle.isEnabled"></mat-slide-toggle>
       {{ codeBundle.urlPatternsCommaSeparated }}
     </div>
   }

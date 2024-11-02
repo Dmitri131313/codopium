@@ -1,10 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CodeBundle, CodeService} from "../../../shared/services/code.service";
+import {MatSlideToggle} from "@angular/material/slide-toggle";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-url-pattern-groups-list',
   standalone: true,
-  imports: [],
+  imports: [
+    MatSlideToggle,
+    FormsModule,
+  ],
   templateUrl: './url-pattern-groups-list.component.html',
   styleUrl: './url-pattern-groups-list.component.scss'
 })
@@ -33,6 +38,11 @@ export class UrlPatternGroupsListComponent implements OnInit {
 
   loadCodeBundle(codeBundle: CodeBundle): void {
     this.codeService.loadCodeBundleDemand(codeBundle)
+  }
+
+  isActiveChange(codeBundle: CodeBundle, checked: boolean) {
+    codeBundle.isEnabled = checked
+    this.codeService.saveCodeBundleAndReturnIdAsync(codeBundle)
   }
 
 }

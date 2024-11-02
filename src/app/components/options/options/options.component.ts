@@ -38,6 +38,8 @@ export class OptionsComponent implements OnInit {
   protected readonly EditorType = EditorType;
   protected readonly IconSet = IconSet;
 
+  private loadedCodeBundle: CodeBundle | undefined
+
   constructor(
     private codeService: CodeService,
   ) {
@@ -59,6 +61,7 @@ export class OptionsComponent implements OnInit {
         urlPatterns: urlPatterns,
         js,
         css,
+        isEnabled: this.loadedCodeBundle?.isEnabled ?? true,
       }
       this.codeService.saveCodeBundleAndReturnIdAsync(codeBundle).then((returnedId: string): void => {
         this.setCodeBundleId(returnedId)
@@ -88,6 +91,7 @@ export class OptionsComponent implements OnInit {
   }
 
   private loadCodeBundle(codeBundle: CodeBundle | void) {
+    this.loadedCodeBundle = codeBundle ?? undefined
     this.codeBundleForm.patchValue({
       urlPatternsCommaSeparated: codeBundle?.urlPatternsCommaSeparated ?? '',
       id: codeBundle?.id ?? '',

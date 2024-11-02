@@ -8,6 +8,7 @@ export interface CodeBundle {
   urlPatternsCommaSeparated?: string
   js: string
   css: string
+  isEnabled: boolean
 }
 
 @Injectable({
@@ -26,8 +27,8 @@ export class CodeService {
       codeBundle.id = this.getNewId()
     }
     return Promise.all([
-      this.chromeService.saveJSToChromeRegisteredScriptsAsync(codeBundle),
-      this.chromeService.saveCSSToChromeRegisteredScriptsAsync(codeBundle),
+      this.chromeService.saveOrRemoveJSToChromeRegisteredScriptsAsync(codeBundle),
+      this.chromeService.saveOrRemoveCSSToChromeRegisteredScriptsAsync(codeBundle),
       this.saveToLocalStorage(codeBundle),
     ])
       .then(() => codeBundle.id)

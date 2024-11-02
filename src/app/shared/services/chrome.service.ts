@@ -8,14 +8,22 @@ export class ChromeService {
 
   constructor() { }
 
-  saveJSToChromeRegisteredScriptsAsync(codeBundle: CodeBundle): Promise<void> {
-    return this.saveToChromeRegisteredScriptsAsync(codeBundle.id, codeBundle.urlPatterns, codeBundle.js, "document_start")
+  saveOrRemoveJSToChromeRegisteredScriptsAsync(codeBundle: CodeBundle): Promise<void> {
+    if (codeBundle.isEnabled) {
+      return this.saveToChromeRegisteredScriptsAsync(codeBundle.id, codeBundle.urlPatterns, codeBundle.js, "document_start")
+    } else {
+      return this.removeFromChromeRegisteredScriptAsync(codeBundle.id)
+    }
   }
 
-  saveCSSToChromeRegisteredScriptsAsync(codeBundle: CodeBundle): Promise<void> {
+  saveOrRemoveCSSToChromeRegisteredScriptsAsync(codeBundle: CodeBundle): Promise<void> {
     const id: string = codeBundle.id + ':css'
     const codeCSSWrappedWithJS: string = this.wrapCSSCodeWithJS(codeBundle.css)
-    return this.saveToChromeRegisteredScriptsAsync(id, codeBundle.urlPatterns, codeCSSWrappedWithJS, "document_end")
+    if (codeBundle.isEnabled) {
+      return this.saveToChromeRegisteredScriptsAsync(id, codeBundle.urlPatterns, codeCSSWrappedWithJS, "document_end")
+    } else {
+      return this.removeFromChromeRegisteredScriptAsync(id)
+    }
   }
 
   saveToChromeRegisteredScriptsAsync(scriptId: string, urlPatterns: string[], codeJS: string, runAt: chrome.userScripts.RunAt): Promise<void> {
