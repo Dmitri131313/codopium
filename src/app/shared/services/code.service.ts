@@ -51,6 +51,10 @@ export class CodeService {
     this.onLoadBundleDemand.next(codeBundle)
   }
 
+  newCodeBundleDemand(): void {
+    this.onLoadBundleDemand.next()
+  }
+
   private addAdditionalPropertiesToCodeBundles(codeBundles: CodeBundle[]): void {
     codeBundles.forEach((codeBundle: CodeBundle): CodeBundle => {
       codeBundle.urlPatternsCommaSeparated = codeBundle.urlPatterns.join(', ')

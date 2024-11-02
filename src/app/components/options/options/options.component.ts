@@ -71,6 +71,10 @@ export class OptionsComponent implements OnInit {
 
   }
 
+  addNewCodeBundle() {
+    this.codeService.newCodeBundleDemand()
+  }
+
   private setCodeBundleId(id: string) {
     if (!this.codeBundleForm.value.id) {
       this.codeBundleForm.patchValue({id})

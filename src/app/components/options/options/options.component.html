@@ -1,5 +1,8 @@
 <div class="workplace">
   <div class="sidebar">
+    <mat-toolbar>
+      <button mat-button type="button" (click)="addNewCodeBundle()">Add new code bundle</button>
+    </mat-toolbar>
     <app-url-pattern-groups-list [loadedCodeBundleId]="this.codeBundleForm.value.id"></app-url-pattern-groups-list>
   </div>
   <form class="editors-area" [formGroup]="codeBundleForm">
