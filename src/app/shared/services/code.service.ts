@@ -55,6 +55,26 @@ export class CodeService {
     this.onLoadBundleDemand.next()
   }
 
+  removeCodeBundleAsync(id: string): Promise<void> {
+    return Promise.all([
+      this.removeChromeRegisteredScript(id),
+      this.removeFromLocalStorage(id),
+    ]).then()
+  }
+
+  private removeChromeRegisteredScript(id: string): Promise<void> {
+    return chrome.userScripts.unregister({ids: [id, id + ':css']});
+  }
+
+  private removeFromLocalStorage(id: string): Promise<void> {
+    return this.getCodeBundlesAsync().then((codeBundles: CodeBundle[]) => {
+      codeBundles = codeBundles.filter((codeBundle: CodeBundle): boolean => codeBundle.id !== id)
+      return chrome.storage.local.set({codeBundles}).then(
+        this.notifyCodeBundlesUpdated.bind(this)
+      )
+    })
+  }
+
   private addAdditionalPropertiesToCodeBundles(codeBundles: CodeBundle[]): void {
     codeBundles.forEach((codeBundle: CodeBundle): CodeBundle => {
       codeBundle.urlPatternsCommaSeparated = codeBundle.urlPatterns.join(', ')

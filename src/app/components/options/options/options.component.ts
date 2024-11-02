@@ -68,7 +68,13 @@ export class OptionsComponent implements OnInit {
   }
 
   removeCodeBundle(): void {
-
+    if (confirm('Are you sure to remove current code bundle?')) {
+      if (this.codeBundleForm.value.id) {
+        this.codeService.removeCodeBundleAsync(this.codeBundleForm.value.id).then(() => {
+          this.codeBundleForm.reset()
+        })
+      }
+    }
   }
 
   addNewCodeBundle() {
