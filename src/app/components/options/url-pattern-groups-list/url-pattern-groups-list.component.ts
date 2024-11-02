@@ -31,4 +31,8 @@ export class UrlPatternGroupsListComponent implements OnInit {
     })
   }
 
+  loadCodeBundle(codeBundle: CodeBundle): void {
+    this.codeService.loadCodeBundleDemand(codeBundle)
+  }
+
 }

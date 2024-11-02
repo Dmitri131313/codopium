@@ -14,6 +14,7 @@ export interface CodeBundle {
   providedIn: 'root'
 })
 export class CodeService {
+  onLoadBundleDemand: Subject<CodeBundle|void> = new Subject<CodeBundle|void>()
   onCodeBundlesUpdate: Subject<void> = new Subject<void>()
 
   constructor(
@@ -44,6 +45,10 @@ export class CodeService {
     let urlPatterns: string[] = urlPatternsCommaSeparated.split(',')
     urlPatterns = urlPatterns.map(urlPattern => urlPattern.trim())
     return urlPatterns
+  }
+
+  loadCodeBundleDemand(codeBundle: CodeBundle): void {
+    this.onLoadBundleDemand.next(codeBundle)
   }
 
   private addAdditionalPropertiesToCodeBundles(codeBundles: CodeBundle[]): void {

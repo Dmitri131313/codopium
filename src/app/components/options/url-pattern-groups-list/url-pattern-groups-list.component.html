@@ -1,6 +1,7 @@
 <div class="url-pattern-groups-list">
   @for (codeBundle of codeBundles; track codeBundle.id) {
     <div class="url-pattern-group"
+         (click)="loadCodeBundle(codeBundle)"
          [class.selected]="codeBundle.id === loadedCodeBundleId"
          [title]="codeBundle.urlPatternsCommaSeparated">
       {{ codeBundle.urlPatternsCommaSeparated }}

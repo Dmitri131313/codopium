@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EditorComponent, EditorType} from "../editor/editor.component";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -26,7 +26,7 @@ import {UrlPatternGroupsListComponent} from "../url-pattern-groups-list/url-patt
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss'
 })
-export class OptionsComponent {
+export class OptionsComponent implements OnInit {
 
   codeBundleForm = new FormGroup({
     id: new FormControl<string>(''),
@@ -41,6 +41,10 @@ export class OptionsComponent {
   constructor(
     private codeService: CodeService,
   ) {
+  }
+
+  ngOnInit(): void {
+    this.codeService.onLoadBundleDemand.subscribe(this.loadCodeBundle.bind(this))
   }
 
   saveCodeBundle(): void {
@@ -71,6 +75,16 @@ export class OptionsComponent {
     if (!this.codeBundleForm.value.id) {
       this.codeBundleForm.patchValue({id})
     }
+  }
+
+  private loadCodeBundle(codeBundle: CodeBundle | void) {
+    this.codeBundleForm.patchValue({
+      urlPatternsCommaSeparated: codeBundle?.urlPatternsCommaSeparated ?? '',
+      id: codeBundle?.id ?? '',
+      css: codeBundle?.css ?? '',
+      js: codeBundle?.js ?? '',
+    })
+    this.codeBundleForm.markAsPristine()
   }
 
 }
