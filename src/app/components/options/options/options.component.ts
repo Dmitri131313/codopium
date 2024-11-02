@@ -8,6 +8,7 @@ import {IconComponent, IconSet} from "../../../shared/components/icon/icon.compo
 import {CodeBundle, CodeService} from "../../../shared/services/code.service";
 import {MatToolbar} from "@angular/material/toolbar";
 import {UrlPatternGroupsListComponent} from "../url-pattern-groups-list/url-pattern-groups-list.component";
+import {UrlPatternsGroupValidator} from "../../../shared/validators/url-patterns-group.validator";
 
 @Component({
   selector: 'app-options',
@@ -30,7 +31,7 @@ export class OptionsComponent implements OnInit {
 
   codeBundleForm = new FormGroup({
     id: new FormControl<string>(''),
-    urlPatternsCommaSeparated: new FormControl<string>('', [Validators.required]),
+    urlPatternsCommaSeparated: new FormControl<string>('', [Validators.required, UrlPatternsGroupValidator.urlPatternsGroupValidator()]),
     js: new FormControl<string>(''),
     css: new FormControl<string>(''),
   })
