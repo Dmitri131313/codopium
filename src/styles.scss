@@ -1,3 +1,17 @@
+:root {
+  --mdc-switch-track-width: 36px;
+  --mdc-switch-track-height: 22px;
+  --mdc-switch-state-layer-size: 28px;
+  --mat-switch-with-icon-handle-size: 16px;
+  --mat-switch-pressed-handle-size: 18px;
+  --mat-switch-selected-with-icon-handle-horizontal-margin: 0 16px;
+  --mat-switch-selected-pressed-handle-horizontal-margin: 0 16px;
+  --mat-switch-selected-handle-horizontal-margin: 0 16px;
+
+  --mdc-filled-button-container-shape: 4px;
+  --mdc-text-button-container-shape: 4px;
+}
+
 html, body {
   margin: 0;
   height: 100%;
