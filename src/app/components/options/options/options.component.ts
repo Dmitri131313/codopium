@@ -52,6 +52,8 @@ export class OptionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.codeService.onLoadBundleDemand.subscribe(this.loadCodeBundle.bind(this))
+    this.loadURLPatternFromQueryString()
+    this.loadCodeBundleFromURLQueryString()
   }
 
   saveCodeBundle(): void {
@@ -104,6 +106,28 @@ export class OptionsComponent implements OnInit {
       js: codeBundle?.js ?? '',
     })
     this.codeBundleForm.markAsPristine()
+  }
+
+  private loadURLPatternFromQueryString() {
+    const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
+    const url: string | null = queryParams.get('url');
+    if (url) {
+      this.setUrlPatternsGroup(url)
+    }
+  }
+
+  private setUrlPatternsGroup(urlPatternsCommaSeparated: string) {
+    this.codeBundleForm.patchValue({
+      urlPatternsCommaSeparated,
+    })
+  }
+
+  private loadCodeBundleFromURLQueryString() {
+    const queryParams: URLSearchParams = new URLSearchParams(window.location.search);
+    const id: string | null = queryParams.get('id');
+    if (id !== null) {
+      this.codeService.loadCodeBundleByIdDemand(id)
+    }
   }
 
 }

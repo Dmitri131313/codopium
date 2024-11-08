@@ -72,6 +72,25 @@ export class CodeService {
       )
   }
 
+  loadCodeBundleByIdDemand(id: string): void {
+    this.getCodeBundleByIdAsync(id).then((codeBundle: CodeBundle | null): void => {
+      if (codeBundle !== null) {
+        this.loadCodeBundleDemand(codeBundle)
+      }
+    })
+  }
+
+  private getCodeBundleByIdAsync(id: string): Promise<CodeBundle | null> {
+    return this.getCodeBundlesAsync()
+      .then((codeBundles: CodeBundle[]): CodeBundle[] =>
+        codeBundles
+          .filter((codeBundle: CodeBundle): boolean => codeBundle.id === id)
+      )
+      .then((filterCodeBundles: CodeBundle[]) =>
+        filterCodeBundles.length ? filterCodeBundles[0] : null
+      )
+  }
+
   private isUrlMatchPatterns(url: string, patterns: string[]): boolean {
     const includePatternsOnly = this.chromeService.filterIncludePatternsOnly(patterns)
     const isIncludePatternsMatch = includePatternsOnly.some((pattern: string): boolean => {
