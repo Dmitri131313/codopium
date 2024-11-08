@@ -24,6 +24,8 @@ export class PopupComponent implements OnInit {
 
   codeBundles: CodeBundle[] = []
   currentUrl: string | undefined
+  urlToAddRuleForDomain: string = ''
+  urlToAddRuleForPage: string = ''
 
   constructor(
     private codeService: CodeService,
@@ -34,6 +36,7 @@ export class PopupComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchCurrentUrl().then(() => {
+      this.initAddRuleUrls()
       if (this.currentUrl !== undefined) {
         this.codeService.getCodeBundlesForUrlAsync(this.currentUrl).then((codeBundles: CodeBundle[]): void => {
           this.codeBundles = codeBundles
@@ -61,6 +64,16 @@ export class PopupComponent implements OnInit {
 
   private isValidUrl(url: string): boolean {
     return UrlPatternsGroupValidator.urlPatternsGroupValidator()(new FormControl(url)) === null
+  }
+
+  protected readonly encodeURIComponent = encodeURIComponent;
+
+  private initAddRuleUrls() {
+    if (this.currentUrl !== undefined) {
+      const domainURLPattern = new URL(this.currentUrl).origin + '/*'
+      this.urlToAddRuleForDomain = this.chromeService.getOptionsPageUrl({url: domainURLPattern})
+      this.urlToAddRuleForPage = this.chromeService.getOptionsPageUrl({url: this.currentUrl})
+    }
   }
 
 }

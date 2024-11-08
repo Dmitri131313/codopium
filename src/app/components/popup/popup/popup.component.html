@@ -9,4 +9,16 @@
       </div>
     }
   </div>
+  @if (urlToAddRuleForDomain && urlToAddRuleForPage) {
+    <div class="toolbar">
+      <button mat-flat-button>
+        <a mat-flat-button [href]="urlToAddRuleForDomain" target="_blank">Add code for domain</a>
+      </button>
+      <button mat-flat-button>
+        <a [href]="urlToAddRuleForPage" target="_blank">Add code for this page</a>
+      </button>
+    </div>
+  } @else {
+    <div class="not-valid-url">Code bundle couldn't be added to the current page</div>
+  }
 </div>
