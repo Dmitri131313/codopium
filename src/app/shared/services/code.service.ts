@@ -63,6 +63,34 @@ export class CodeService {
     ]).then()
   }
 
+  getCodeBundlesForUrlAsync(currentUrl: string): Promise<CodeBundle[]> {
+    return this.getCodeBundlesAsync()
+      .then((codeBundles: CodeBundle[]): CodeBundle[] =>
+        codeBundles.filter((codeBundle: CodeBundle): boolean =>
+          this.isUrlMatchPatterns(currentUrl, codeBundle.urlPatterns)
+        )
+      )
+  }
+
+  private isUrlMatchPatterns(url: string, patterns: string[]): boolean {
+    const includePatternsOnly = this.chromeService.filterIncludePatternsOnly(patterns)
+    const isIncludePatternsMatch = includePatternsOnly.some((pattern: string): boolean => {
+      const regExpString: string = pattern.replace(/\W/g, "\\$&").replace(/\\\*/g, ".*")
+      const regExp: RegExp = new RegExp(regExpString, "i")
+      return regExp.test(url)
+    })
+    if (isIncludePatternsMatch) {
+      const excludePatternsOnly = this.chromeService.filterExcludePatternsOnly(patterns)
+      const isExcludePatternsMatch = excludePatternsOnly.some((pattern: string): boolean => {
+        const regExpString: string = pattern.replace(/\W/g, "\\$&").replace(/\\\*/g, ".*")
+        const regExp: RegExp = new RegExp(regExpString, "i")
+        return regExp.test(url)
+      })
+      return !isExcludePatternsMatch
+    }
+    return false
+  }
+
   private removeChromeRegisteredScript(id: string): Promise<void> {
     return chrome.userScripts.unregister({ids: [id, id + ':css']});
   }

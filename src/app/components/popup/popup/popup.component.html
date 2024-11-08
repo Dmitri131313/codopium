@@ -1,1 +1,12 @@
-<p>popup works!</p>
+<div class="main-container">
+  <div class="code-bundles-list">
+    @for (codeBundle of codeBundles; track codeBundle.id) {
+      <div class="code-bundle">
+        <mat-slide-toggle (change)="isActiveChange(codeBundle, $event.checked)" [(ngModel)]="codeBundle.isEnabled"></mat-slide-toggle>
+        <a [href]="getOptionsPageUrlForRule(codeBundle.id)"
+           title="Click to edit code for {{ codeBundle.urlPatternsCommaSeparated }}"
+           target="_blank">{{ codeBundle.urlPatternsCommaSeparated }}</a>
+      </div>
+    }
+  </div>
+</div>

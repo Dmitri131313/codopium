@@ -52,11 +52,27 @@ export class ChromeService {
     }).then((foundScripts: chrome.userScripts.RegisteredUserScript[]) => foundScripts.length !== 0)
   }
 
-  private filterIncludePatternsOnly(patterns: string[]): string[] {
+  getOptionsPageUrl(queryParams: {[key: string]: string} = {}): string {
+    const queryString: string = Object.entries(queryParams)
+      .map(([key, value]: [string, string]): string =>
+        `${key}=${encodeURIComponent(value)}`
+      ).
+      join("&")
+    return chrome.runtime.getURL('index.html') + '?' + queryString + '#options'
+  }
+
+  getCurrentUrlAsync(): Promise<string | undefined> {
+    return chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    }).then((tabs: chrome.tabs.Tab[]) => tabs[0].url)
+  }
+
+  filterIncludePatternsOnly(patterns: string[]): string[] {
     return patterns.filter(pattern => !pattern.startsWith('!'))
   }
 
-  private filterExcludePatternsOnly(patterns: string[]): string[] {
+  filterExcludePatternsOnly(patterns: string[]): string[] {
     return patterns
       .filter(pattern => pattern.startsWith('!'))
       .map(pattern => pattern.substring(1))
@@ -69,4 +85,5 @@ export class ChromeService {
       '\n\tdocument.documentElement.appendChild(style)' +
       '\n})()'
   }
+
 }
