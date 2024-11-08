@@ -12,6 +12,10 @@ import {UrlPatternsGroupValidator} from "../../../shared/validators/url-patterns
 import {
   UrlPatternsGroupRequirementsComponent
 } from "../../../shared/components/url-patterns-group-requirements/url-patterns-group-requirements.component";
+import {ChromeService} from "../../../shared/services/chrome.service";
+import {
+  HowtoActivateDeveloperModeComponent
+} from "../../../shared/components/howto-activate-developer-mode/howto-activate-developer-mode.component";
 
 @Component({
   selector: 'app-options',
@@ -27,12 +31,13 @@ import {
     IconComponent,
     MatToolbar,
     UrlPatternsGroupRequirementsComponent,
+    HowtoActivateDeveloperModeComponent,
   ],
   templateUrl: './options.component.html',
   styleUrl: './options.component.scss'
 })
 export class OptionsComponent implements OnInit {
-
+  isDeveloperModeEnabled: boolean | undefined
   codeBundleForm = new FormGroup({
     id: new FormControl<string>(''),
     urlPatternsCommaSeparated: new FormControl<string>('', [Validators.required, UrlPatternsGroupValidator.urlPatternsGroupValidator()]),
@@ -47,10 +52,12 @@ export class OptionsComponent implements OnInit {
 
   constructor(
     private codeService: CodeService,
+    private chromeService: ChromeService,
   ) {
   }
 
   ngOnInit(): void {
+    this.isDeveloperModeEnabled = this.chromeService.isChromeUserscriptsAvailable()
     this.codeService.onLoadBundleDemand.subscribe(this.loadCodeBundle.bind(this))
     this.loadURLPatternFromQueryString()
     this.loadCodeBundleFromURLQueryString()

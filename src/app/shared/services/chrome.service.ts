@@ -8,6 +8,15 @@ export class ChromeService {
 
   constructor() { }
 
+  isChromeUserscriptsAvailable(): boolean {
+    try {
+      chrome.userScripts;
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
   saveOrRemoveJSToChromeRegisteredScriptsAsync(codeBundle: CodeBundle): Promise<void> {
     if (codeBundle.isEnabled) {
       return this.saveToChromeRegisteredScriptsAsync(codeBundle.id, codeBundle.urlPatterns, codeBundle.js, "document_start")
